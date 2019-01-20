@@ -1,21 +1,26 @@
-#記帳程式
 products = [] #建立大清單
+# 讀取檔案
+with open ('products.csv', 'r', encoding='utf-8') as f:
+    for line in f:
+        if '商品,價格' in line:
+            continue #跳到下一個迴圈
+        name, price = line.strip().split(',') #去掉換行符號\n 在切割字串
+        products.append([name, price])
+print(products)
+# 讓使用者輸入
 while True:
     name = input('請輸入商品名稱: ')
     if name == 'q':
-        break
+        break #跳出回圈
     price = input('請輸入價格: ')
-    p = [] #建立小清單
-    # p.append(name) 
-    # p.append(price)
-    p = [name, price]
-    products.append(p)
+    price = int(price)
+    products.append([name, price])
 print(products)
-
+# 印出所有購買紀錄
 for product in products:
     print(product[0], '的價格是', product[1])
-
+# 寫入檔案
 with open('products.csv', 'w', encoding='utf-8') as f: # 打開檔案(csv檔)
     f.write('商品,價格\n')
     for p in products:
-        f.write(p[0] + ',' + p[1] + '\n' ) # 寫入檔案
+        f.write(product[0] + ',' + product[1] + '\n' ) 
